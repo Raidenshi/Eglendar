@@ -1,0 +1,170 @@
+body {
+  font-family: 'Itim', cursive;
+  background-color: #2cb943;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  font-size: 60px;
+  text-align: end;
+}
+
+.app-name {
+  display: inline;
+
+  padding: 0 25px;
+  margin-right: 150px;
+
+  color: rgb(255, 175, 26);
+  text-shadow: 10px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.app-name span {
+  color: #e6e6e6;
+}
+
+.container {
+  position: relative;
+  z-index: 99;
+
+  margin-top: 80px;
+  transition: transform 0.5s;
+}
+
+.calendar {
+  width: 820px;
+  height: 720px;
+  border-radius: 6%;
+
+  background-color: #e4e4e4;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.okayeg {
+  position: absolute;
+  top: -140px;
+  left: -120px;
+  z-index: -1;
+}
+
+.display-date {
+  color: rgb(255, 175, 26);
+  font-size: 40px;
+  text-align: center;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.display-date span {
+  color: #e6e6e6;
+}
+
+.next-month,
+.previous-month {
+  position: absolute;
+  top: calc(50% - 35px);
+
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  border: none;
+  background: #e6e6e67e;
+
+  text-align: center;
+  font-size: 40px;
+
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.next-month {
+  left: 101%;
+}
+
+.previous-month {
+  left: calc(-70px - 1%);
+}
+
+.next-month:hover,
+.previous-month:hover {
+  background: #e6e6e6;
+}
+
+.next-month:active,
+.previous-month:active {
+  transform: scale(0.98);
+}
+
+.weekdays {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+
+  height: 45px;
+  margin: 0px;
+  padding: 30px 0 0 0;
+
+  list-style: none;
+  text-align: center;
+}
+
+.weekdays li {
+  display: inline-block;
+
+  width: 100px;
+
+  font-size: 20px;
+}
+
+.calendar-table {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+
+  height: 600px;
+  transition: opacity 0.3s;
+}
+
+.calendar-table.hidden {
+  opacity: 0;
+}
+
+.table-day {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+
+  width: 100px;
+  height: 95px;
+  border: 2px solid #2cb943;
+  border-radius: 5%;
+
+  font-size: 20px;
+  transition: 0.3s;
+}
+.table-day.previous,
+.table-day.next {
+  border: 2px solid #2cb9433a;
+  color: rgba(128, 128, 128, 0.303);
+}
+
+.table-day:hover {
+  background-color: #2cb943;
+  color: white;
+}
+
+.table-day.previous:hover,
+.table-day.next:hover {
+  background-color: #2cb9433a;
+  color: white;
+}
+
+.table-day.today {
+  background-color: rgb(255, 175, 26);
+  border-color: rgb(255, 175, 26);
+}

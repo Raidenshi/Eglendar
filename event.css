@@ -1,0 +1,43 @@
+.event-schedule {
+  position: absolute;
+
+  width: 410px;
+  height: 720px;
+  border-radius: 6%;
+  margin-top: 128px;
+
+  background-color: #e4e4e4;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.15);
+
+  transition: all 0.5s;
+}
+.close-event {
+  z-index: 1;
+
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: #d42c2c9f;
+
+  font-size: 22px;
+  color: white;
+
+  transition: 0.2s;
+}
+.event-schedule .close-event:hover {
+  background-color: #d42c2c;
+}
+
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  list-style: none;
+}
+
+.schedule-container li {
+}
