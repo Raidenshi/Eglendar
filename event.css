@@ -1,4 +1,7 @@
 .event-schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   position: absolute;
 
   width: 410px;
@@ -12,8 +15,6 @@
   transition: all 0.5s;
 }
 .close-event {
-  z-index: 1;
-
   width: 40px;
   height: 40px;
   margin: 10px;
@@ -32,12 +33,99 @@
 
 .schedule-container {
   display: flex;
+  box-sizing: border-box;
+  justify-content: flex-start;
   flex-direction: column;
 
   width: 100%;
+  height: 400px;
+  padding-left: 0;
 
   list-style: none;
+  flex-grow: 5;
 }
 
 .schedule-container li {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  overflow: hidden;
+
+  border-bottom: 2px solid #2cb943;
+}
+
+.schedule-container li:first-child {
+  border-top: 2px solid #2cb943;
+}
+
+.schedule-container li span {
+  display: inline-block;
+  box-sizing: border-box;
+  margin-right: 10px;
+  padding-right: 20px;
+
+  line-height: 43px;
+  width: 60px;
+
+  border-right: 2px solid #2cb943;
+}
+
+.create-event {
+  align-self: center;
+  margin-bottom: 15px;
+
+  border: none;
+
+  font-size: 20px;
+  background-color: #2cb943;
+  color: white;
+}
+
+.create-event:hover,
+input[type='submit']:hover {
+  background-color: #31c74a;
+}
+
+.create-event:active,
+input[type='submit']:active {
+  transform: scale(0.98);
+}
+
+form {
+  width: 410px;
+  height: 200px;
+  display: none;
+}
+
+input[type='submit'],
+input[type='time'],
+textarea {
+  display: block;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+input[type='submit'] {
+  margin: 0px auto 15px;
+
+  border: none;
+
+  font-size: 20px;
+  background-color: #2cb943;
+  color: white;
+}
+
+textarea {
+  width: 300px;
+  height: 120px;
+  border: 2px solid #2cb943;
+  outline: 0;
+
+  font-size: 16px;
+
+  transition: all 0.3s;
+}
+
+input[type='time'] {
+  border: 2px solid #2cb943;
 }

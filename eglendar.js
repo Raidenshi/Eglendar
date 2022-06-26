@@ -1,8 +1,13 @@
 let calNav = 0;
 let clicked = null;
+let clickedDate = null;
 let events = localStorage.getItem('events')
   ? JSON.parse(localStorage.getItem('events'))
   : [];
+
+let date;
+let month;
+let year;
 
 const weekdays = [
   'Monday',
@@ -12,21 +17,25 @@ const weekdays = [
   'Friday',
   'Saturday',
 ];
-``;
+
 const today = new Date().getDate();
 const calendar = document.getElementById('calendar-table');
 const container = document.querySelector('.container');
 const eventSchedule = document.querySelector('.event-schedule');
+const closeEvent = document.querySelector('.close-event');
+const createEvent = document.querySelector('.create-event');
+const addEvent = document.forms[0];
+const eventList = document.querySelector('.schedule-container');
 
 function init() {
-  const date = new Date();
+  date = new Date();
 
   if (calNav != 0) {
     date.setMonth(new Date().getMonth() + calNav);
   }
 
-  const month = date.getMonth();
-  const year = date.getFullYear();
+  month = date.getMonth();
+  year = date.getFullYear();
 
   const lastDayLastMonth = new Date(year, month, 0).getDate();
   const daysThisMonth = new Date(year, month + 1, 0).getDate();
@@ -65,7 +74,7 @@ function init() {
   }
 }
 
-function changeMonthButtons() {
+function initButtons() {
   document.getElementById('next-btn').addEventListener('click', () => {
     calNav++;
     calendar.classList.add('hidden');
@@ -73,6 +82,7 @@ function changeMonthButtons() {
       init();
     }, 130);
   });
+
   document.getElementById('previous-btn').addEventListener('click', () => {
     calNav--;
     calendar.classList.add('hidden');
@@ -80,30 +90,73 @@ function changeMonthButtons() {
       init();
     }, 130);
   });
+
+  calendar.addEventListener('click', openEventWindow);
+
+  closeEvent.addEventListener('click', closeEventWindow);
+
+  createEvent.addEventListener('click', displayCreateEventForm);
+
+  addEvent.addEventListener('submit', (e) => {
+    e.preventDefault();
+    events.push({
+      date: clickedDate,
+      time: addEvent[0].value,
+      text: addEvent[1].value,
+    });
+    localStorage.setItem('events', JSON.stringify(events));
+    refreshEventList(events);
+  });
 }
 
-function openEventWindow() {
-  calendar.addEventListener('click', (e) => {
-    if (clicked) clicked.style.border = '';
-    if (e.target.classList.contains('calendar-table')) return;
+function openEventWindow(e) {
+  closeCreateEventForm();
+  if (e.target.classList.contains('calendar-table')) return;
+  if (clicked) clicked.style.border = '';
 
-    container.style.transform = 'translateX(-200px)';
-    eventSchedule.style.transform = 'translateX(500px)';
-    clicked = e.target;
-    e.target.style.border = '2px solid #d42c2c';
-  });
+  clicked = e.target;
+  let clickedMonth = null;
+  if (clicked.classList.contains('next')) {
+    clickedMonth = month + 1;
+  } else if (clicked.classList.contains('previous')) {
+    clickedMonth = month - 1;
+  } else clickedMonth = month;
+
+  clickedDate = `${clicked.innerText}/${clickedMonth}/${year}`;
+  refreshEventList(events);
+
+  container.style.transform = 'translateX(-200px)';
+  eventSchedule.style.transform = 'translateX(500px)';
+  e.target.style.border = '2px solid #d42c2c';
 }
 
 function closeEventWindow() {
-  document.querySelector('.close-event').addEventListener('click', () => {
-    container.style.transform = '';
-    eventSchedule.style.transform = '';
-    clicked.style.border = '';
-    clicked = null;
+  container.style.transform = '';
+  eventSchedule.style.transform = '';
+  clicked.style.border = '';
+  clicked = null;
+  closeCreateEventForm();
+}
+
+function displayCreateEventForm() {
+  document.forms[0].style.display = 'block';
+  createEvent.style.display = 'none';
+}
+
+function closeCreateEventForm() {
+  document.forms[0].style.display = '';
+  createEvent.style.display = '';
+}
+
+function refreshEventList(events) {
+  eventList.innerHTML = '';
+  const eventsThisDay = events.filter((el) => el.date == clickedDate);
+  eventsThisDay.forEach((el) => {
+    let element = document.createElement('li');
+    element.innerHTML = `<span>${el.time}</span>${el.text}`;
+    eventList.appendChild(element);
   });
 }
 
-openEventWindow();
-closeEventWindow();
-changeMonthButtons();
+initButtons();
 init();
