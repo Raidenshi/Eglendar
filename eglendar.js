@@ -149,13 +149,22 @@ function closeCreateEventForm() {
 }
 
 function refreshEventList(events) {
-  eventList.innerHTML = '';
-  const eventsThisDay = events.filter((el) => el.date == clickedDate);
-  eventsThisDay.forEach((el) => {
-    let element = document.createElement('li');
-    element.innerHTML = `<span>${el.time}</span>${el.text}`;
-    eventList.appendChild(element);
-  });
+  eventList.classList.add('hidden');
+  setTimeout(function () {
+    eventList.innerHTML = '';
+    const eventsThisDay = events.filter((el) => el.date == clickedDate);
+    eventsThisDay.sort(function (a, b) {
+      if (a.time > b.time) return 1;
+      if (a.time < b.time) return -1;
+      return 0;
+    });
+    eventsThisDay.forEach((el) => {
+      let element = document.createElement('li');
+      element.innerHTML = `<span>${el.time}</span>${el.text}`;
+      eventList.appendChild(element);
+    });
+    eventList.classList.remove('hidden');
+  }, 130);
 }
 
 initButtons();

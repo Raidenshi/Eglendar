@@ -33,16 +33,18 @@
 
 .schedule-container {
   display: flex;
-  box-sizing: border-box;
+  flex-grow: 5;
   justify-content: flex-start;
   flex-direction: column;
+  box-sizing: border-box;
 
   width: 100%;
   height: 400px;
   padding-left: 0;
 
   list-style: none;
-  flex-grow: 5;
+
+  transition: opacity 0.3s;
 }
 
 .schedule-container li {

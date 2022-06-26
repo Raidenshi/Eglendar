@@ -130,7 +130,7 @@ header {
   transition: opacity 0.3s;
 }
 
-.calendar-table.hidden {
+.hidden {
   opacity: 0;
 }
 
